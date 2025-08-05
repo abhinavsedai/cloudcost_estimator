@@ -1,13 +1,13 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-// import lombok.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "cost")
-// @Data
+@Data
 // @NoArgsConstructor
 // @AllArgsConstructor
 public class Cost {

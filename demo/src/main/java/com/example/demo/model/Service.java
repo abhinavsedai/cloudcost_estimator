@@ -1,11 +1,11 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-// import lombok.*;
+import lombok.*;
 
 @Entity
-@Table(name = "service")
-// @Data
+@Table(name = "services")
+@Data
 // @NoArgsConstructor
 // @AllArgsConstructor
 public class Service {
