@@ -13,6 +13,7 @@ const Dropdown = () => {
   const [servicestype, setServicestype] = useState([]);
   const [selectedServicetype, setSelectedServicetype] = useState('');
   const [selectedServicetypeId, setSelectedServicetypeId] = useState(null);
+  const [selectedRegionId, setselectedRegionId] = useState(null);
 
   const [units, setUnits] = useState("");
 
@@ -64,8 +65,20 @@ const Dropdown = () => {
     setIsLoading(false);
   }, []);
 
-  const handleRegionChange = (event) => {
-    setSelectedRegion(event.target.value);
+  // const handleRegionChange = (event) => {
+  //   setSelectedRegion(event.target.value);
+  // };
+    const handleRegionChange = (event) => {
+      const selectedValue = event.target.value;
+    setSelectedRegion(selectedValue);
+    const selectedServiceObj = regions.find(
+    (service) => service.regionName === selectedValue);
+
+    if (selectedServiceObj) {
+    setselectedRegionId(selectedServiceObj.id); 
+  } else {
+    setselectedRegionId(null); 
+  }
   };
   const handleServiceChange = (event) => {
     const selectedValue = event.target.value;
@@ -155,6 +168,7 @@ const Dropdown = () => {
         ))}
       </select>
       <p>Selected Service Type ID: {selectedServicetypeId}</p>
+      <p>Selected Service Type ID: {selectedRegionId}</p>
       <label>
         Enter number of units: 
         </label>
