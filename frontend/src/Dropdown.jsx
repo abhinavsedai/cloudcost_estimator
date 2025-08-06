@@ -10,8 +10,9 @@ const Dropdown = () => {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState('');
 
-    const [servicestype, setServicestype] = useState([]);
+  const [servicestype, setServicestype] = useState([]);
   const [selectedServicetype, setSelectedServicetype] = useState('');
+  const [selectedServicetypeId, setSelectedServicetypeId] = useState(null);
 
   const [units, setUnits] = useState("");
 
@@ -51,23 +52,6 @@ const Dropdown = () => {
     fetchServices();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchServicestype = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:8080/api/services');
-  //       if (!response.ok) {
-  //         throw new Error(`HTTP error! Status: ${response.status}`);
-  //       }
-  //       const data = await response.json();
-  //       setServicestype(data);
-  //     } catch (e) {
-  //       setError(e.message);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchServicestype();
-  // }, []);
   useEffect(() => {
    
     const hardcodedServices = [
@@ -84,11 +68,23 @@ const Dropdown = () => {
     setSelectedRegion(event.target.value);
   };
   const handleServiceChange = (event) => {
-    setSelectedService(event.target.value);
+    const selectedValue = event.target.value;
+    setSelectedService(selectedValue);
+
+    const selectedServiceObj = services.find(
+    (service) => service.resourceType === selectedValue);
+
+    if (selectedServiceObj) {
+    setSelectedServicetypeId(selectedServiceObj.id); 
+  } else {
+    setSelectedServicetypeId(null); 
+  }
   };
-    const handleServicetypeChange = (event) => {
+ const handleServicetypeChange = (event) => {
     setSelectedServicetype(event.target.value);
+    
   };
+
   if (isLoading) {
     return <div>Loading regions...</div>;
   }
@@ -117,8 +113,6 @@ const Dropdown = () => {
         ))}
       </select>
 
-      {/* {selectedServicetype && <p style={{ marginTop: '10px' }}>You selected: <strong>{selectedServicetype}</strong></p>} */}
-
       <label htmlFor="service-select">Choose a resource:</label>
       <select 
         id="service-select" 
@@ -128,13 +122,9 @@ const Dropdown = () => {
         style={{
     color: selectedRegion ? '#000' : '#888' 
   }}
+  
       >
-        {/* <option value="" disabled>Resource</option>
-        {services.map((service) => (
-          <option key={service.id} value={service.resourceType}>
-            {service.resourceType}
-          </option>
-        ))} */}
+
         <option value="" disabled>Resource</option>
 {services
   .filter(service => service.serviceType === selectedServicetype)
@@ -144,8 +134,6 @@ const Dropdown = () => {
     </option>
 ))}
       </select>
-
-      {/* {selectedService && <p style={{ marginTop: '10px' }}>You selected: <strong>{selectedService}</strong></p>} */}
 
       <label htmlFor="region-select">Choose a Region:</label>
       <select 
@@ -158,6 +146,7 @@ const Dropdown = () => {
   }}
         
       >
+        
         <option value="" disabled >Region</option>
         {regions.map((region) => (
           <option key={region.id} value={region.regionName}>
@@ -165,8 +154,7 @@ const Dropdown = () => {
           </option>
         ))}
       </select>
-
-      {/* {selectedRegion && <p style={{ marginTop: '10px' }}>You selected: <strong>{selectedRegion}</strong></p>} */}
+      <p>Selected Service Type ID: {selectedServicetypeId}</p>
       <label>
         Enter number of units: 
         </label>
