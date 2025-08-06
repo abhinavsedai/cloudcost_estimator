@@ -15,4 +15,7 @@ public class Service {
 
     @Column(name = "resource_type", unique = true, nullable = false)
     private String resourceType;
+
+    @Column(name = "service_type", nullable = false)
+    private String serviceType;
 }

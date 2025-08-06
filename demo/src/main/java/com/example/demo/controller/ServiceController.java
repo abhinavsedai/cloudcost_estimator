@@ -5,7 +5,7 @@ import com.example.demo.repository.ServiceRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/services")
 public class ServiceController {
