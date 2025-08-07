@@ -19,7 +19,6 @@ function App() {
           label="Select a Product:" 
           onValueChange={handleDropdownChange} 
         />
-        <button type="submit">Calculate</button>
       </main>
       
     </div>
