@@ -280,7 +280,7 @@ const Dropdown = () => {
         <ul style={{listStyle:'none', padding:0}}>
           {selections.map((sel, idx) => (
             <li key={idx} style={{
-              background:'#e3f2fd',
+              background:'#23283b',
               border:'1px solid #90caf9',
               borderRadius:'8px',
               marginBottom:'12px',
