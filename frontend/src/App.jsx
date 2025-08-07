@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="app-container">
       <header>
-        <h1>Cost Estimator</h1>
+        {/* <h1>Cost Estimator</h1> */}
       </header>
       <main>
         <Dropdown 

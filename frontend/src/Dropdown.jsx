@@ -109,7 +109,6 @@ const Dropdown = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('API cost response:', data);
         const costObj = data.find(
           item =>
             item.region.id === selectedRegionId &&
@@ -149,94 +148,103 @@ const Dropdown = () => {
   };
 
   if (isLoading) {
-    return <div>Loading regions...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="dropdown-container loading">
+        <div className="loader"></div>
+        <span>Loading regions...</span>
+      </div>
+    );
   }
 
   return (
-    <div className="dropdown-container">
-      <label htmlFor="service-type">Choose a Service:</label>
-      <select 
-        id="service-type" 
-        className="drop_down"
-        value={selectedServicetype} 
-        onChange={handleServicetypeChange}
-        style={{
-          color: selectedRegion ? '#000' : '#888' 
-        }}
-      >
-        <option value="" disabled>Service</option>
-        {servicestype.map((service) => (
-          <option key={service.id} value={service.serviceType}>
-            {service.serviceType}
-          </option>
-        ))}
-      </select>
-
-      <label htmlFor="service-select">Choose a resource:</label>
-      <select 
-        id="service-select" 
-        className="drop_down"
-        value={selectedService} 
-        onChange={handleServiceChange}
-        style={{
-          color: selectedRegion ? '#000' : '#888' 
-        }}
-      >
-        <option value="" disabled>Resource</option>
-        {services
-          .filter(service => service.serviceType === selectedServicetype)
-          .map(filteredService => (
-            <option key={filteredService.id} value={filteredService.resourceType}>
-              {filteredService.resourceType}
+    <div className="dropdown-container elegant">
+      <h2 className="title">Cloud Cost Estimator</h2>
+      <div className="dropdown-group">
+        <label htmlFor="service-type" className="dropdown-label">Service Type</label>
+        <select 
+          id="service-type" 
+          className="drop_down"
+          value={selectedServicetype} 
+          onChange={handleServicetypeChange}
+        >
+          <option value="" disabled>Service</option>
+          {servicestype.map((service) => (
+            <option key={service.id} value={service.serviceType}>
+              {service.serviceType}
             </option>
           ))}
-      </select>
+        </select>
+      </div>
 
-      <label htmlFor="region-select">Choose a Region:</label>
-      <select 
-        id="region-select" 
-        className="drop_down"
-        value={selectedRegion} 
-        onChange={handleRegionChange}
-        style={{
-          color: selectedRegion ? '#000' : '#888' 
-        }}
-      >
-        <option value="" disabled >Region</option>
-        {regions.map((region) => (
-          <option key={region.id} value={region.regionName}>
-            {region.regionName}
-          </option>
-        ))}
-      </select>
+      <div className="dropdown-group">
+        <label htmlFor="service-select" className="dropdown-label">Resource</label>
+        <select 
+          id="service-select" 
+          className="drop_down"
+          value={selectedService} 
+          onChange={handleServiceChange}
+        >
+          <option value="" disabled>Resource</option>
+          {services
+            .filter(service => service.serviceType === selectedServicetype)
+            .map(filteredService => (
+              <option key={filteredService.id} value={filteredService.resourceType}>
+                {filteredService.resourceType}
+              </option>
+            ))}
+        </select>
+      </div>
 
-      <label>
-        Enter number of units: 
-      </label>
-      <input
-        name="myInput"
-        className="my-input"
-        placeholder="No of units"
-        value={units}
-        onChange={handleUnitsChange}
-        type="number"
-        min="1"
-      />
+      <div className="dropdown-group">
+        <label htmlFor="region-select" className="dropdown-label">Region</label>
+        <select 
+          id="region-select" 
+          className="drop_down"
+          value={selectedRegion} 
+          onChange={handleRegionChange}
+        >
+          <option value="" disabled >Region</option>
+          {regions.map((region) => (
+            <option key={region.id} value={region.regionName}>
+              {region.regionName}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <button className="calculate-btn" onClick={handleCalculate} style={{marginTop: '16px'}}>
-        Calculate
+      <div className="dropdown-group">
+        <label className="dropdown-label">Units</label>
+        <input
+          name="myInput"
+          className="my-input"
+          placeholder="No of units"
+          value={units}
+          onChange={handleUnitsChange}
+          type="number"
+          min="1"
+        />
+      </div>
+
+      <button className="calculate-btn" onClick={handleCalculate}>
+        <span>Calculate</span>
       </button>
 
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
+
       {total !== null && (
-        <div style={{marginTop: '16px'}}>
-          {/* <p>Region ID: {selectedRegionId}</p>
-          <p>Service ID: {selectedServicetypeId}</p> */}
-          <p>Cost per Unit: {cost}</p>
-          <p>Total Cost: {total.toFixed(2)}</p>
+        <div className="result-card">
+          <div className="result-row">
+            <span className="result-label">Cost per Unit:</span>
+            <span className="result-value">${cost}</span>
+          </div>
+          <div className="result-row">
+            <span className="result-label">Total Cost:</span>
+            <span className="result-value">${total.toFixed(2)}</span>
+          </div>
         </div>
       )}
     </div>
