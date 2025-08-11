@@ -26,6 +26,7 @@ Cloud Cost Estimator is a user-friendly web application that helps you estimate 
    ```bash
    git clone https://github.com/yourusername/cloudcost-estimator.git
    cd cloudcost-estimator/frontend
+   git checkout version_4
    ```
 
 2. **Install dependencies**
