@@ -11,8 +11,22 @@ function App() {
 
   return (
     <div className="app-container">
+      
       <header>
-        {/* <h1>Cost Estimator</h1> */}
+        <h2
+          className="title"
+          style={{
+            fontSize: '4rem',
+            textAlign: 'center',
+            margin: '0 auto',
+            fontWeight: 1000,
+            letterSpacing: '2px',
+            color: '#7dcfff',
+            textShadow: '0 2px 12px #365b96ff'
+          }}
+        >
+          Cloud Cost Estimator
+        </h2>
       </header>
       <main>
         <Dropdown 

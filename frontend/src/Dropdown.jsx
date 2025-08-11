@@ -22,6 +22,7 @@ const Dropdown = () => {
   // New state for multiple selections
   const [selections, setSelections] = useState([]);
   const [estimate, setEstimate] = useState(null);
+  const [isCalculating, setIsCalculating] = useState(false); // Add this state
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -142,6 +143,7 @@ const Dropdown = () => {
       setEstimate(null);
       return;
     }
+    setIsCalculating(true); // Start loading
     let totalEstimate = 0;
     let details = [];
     try {
@@ -177,8 +179,24 @@ const Dropdown = () => {
     } catch (e) {
       setError(e.message);
       setEstimate(null);
+    } finally {
+      setIsCalculating(false); // End loading
     }
   };
+    // Reset everything
+  const handleReset = (e) => {
+    setSelectedRegion('');
+    setSelectedService('');
+    setSelectedServicetype('');
+    setSelectedRegionId(null);
+    setSelectedServicetypeId(null);
+    setUnits('');
+    setSelections([]);
+    setEstimate(null);
+    setEstimate([]);
+    setError(null);
+  };
+
 
   if (isLoading) {
     return (
@@ -191,8 +209,9 @@ const Dropdown = () => {
 
   return (
     <div className="dropdown-container elegant" style={{display: 'flex', gap: '32px'}}>
+      
       <div style={{flex: 1}}>
-        <h2 className="title">Cloud Cost Estimator</h2>
+        {/* <h2 className="title">Cloud Cost Estimator</h2> */}
         <div className="dropdown-group">
           <label htmlFor="service-type" className="dropdown-label">Service Type</label>
           <select 
@@ -266,12 +285,26 @@ const Dropdown = () => {
         <button className="calculate-btn" type="button" onClick={handleCalculateEstimate}>
           <span>Calculate Estimate</span>
         </button>
-
+        {/* {isCalculating && (
+          <div className="loading" style={{marginTop: '16px'}}>
+            <div className="loader"></div>
+            <span>Calculating...</span>
+          </div>
+        )} */}
         {error && (
           <div className="error-message">
             {error}
           </div>
         )}
+        <button
+  className="reset-btn"
+  type="button"
+  onClick={handleReset}
+  style={{ marginTop: '8px' }}
+>
+  <span>Reset</span>
+</button>
+
       </div>
 
       <div style={{flex: 1, minWidth: '260px'}}>
@@ -309,6 +342,13 @@ const Dropdown = () => {
             </li>
           ))}
         </ul>
+
+        {isCalculating && (
+          <div className="loading" style={{marginTop: '16px'}}>
+            <div className="loader"></div>
+            <span>Calculating...</span>
+          </div>
+        )}
 
         {estimate && (
           <div className="result-card">
