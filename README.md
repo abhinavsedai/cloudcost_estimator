@@ -17,7 +17,7 @@ Cloud Cost Estimator is a user-friendly web application that helps you estimate 
 ## Tech Stack
 
 - **Frontend:** React, CSS
-- **Backend:** Node.js/Express (API endpoints for regions, services, costs)
+- **Backend:** Spring-boot (API endpoints for regions, services, costs)
 - **Styling:** Custom CSS (dark theme, color theory applied)
 
 ## Setup Instructions
@@ -38,7 +38,7 @@ Cloud Cost Estimator is a user-friendly web application that helps you estimate 
    npm start
    ```
 
-4. **(Optional) Start the backend**
+4. **Start the backend**
    - Ensure your backend server is running at `http://localhost:8080`
    - Endpoints required:
      - `/api/regions`
@@ -54,10 +54,6 @@ Cloud Cost Estimator is a user-friendly web application that helps you estimate 
 5. Remove selections as needed.
 6. Use the **Reset** button to clear all selections and start over.
 
-## License
-
-MIT
-
 ## Author
 
-[Your Name](https://github.com/yourusername)
+[Abhinav Krishna V](https://github.com/abhinavsedai)
