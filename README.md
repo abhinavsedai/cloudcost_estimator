@@ -58,7 +58,7 @@ Cloud Cost Estimator is a user-friendly web application that helps you estimate 
 5. Remove selections as needed.
 6. Use the **Reset** button to clear all selections and start over.
 
-## Author
+## Working Demo
 
 [Cloud Cost Estimator](https://drive.google.com/file/d/1ReGmnMe8JiqiP1z4O6srANNhanjGFcfw/view?usp=drive_link)
 
